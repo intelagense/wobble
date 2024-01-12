@@ -22,7 +22,7 @@ for i in range(nbPCAServo):
 # Function to move a motor to a specified angle
 def move_motor(motor, angle):
     pca.servo[motor].angle = angle
-    time.sleep(0.05)  # Adjust the delay as needed
+    time.sleep(0.03)  # Adjust the delay as needed
 
 # Walking cycle
 def walking_cycle(a = 140, b = 5, c = 5, d = 140):
