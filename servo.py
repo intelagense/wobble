@@ -7,6 +7,11 @@ from adafruit_servokit import ServoKit    #https://circuitpython.readthedocs.io/
 
 # Constants
 nbPCAServo = 4
+LF = 0
+RF = 1
+LR = 2
+RR = 3
+TOOTH = 4
 
 # ServoKit object
 pca = ServoKit(channels=16, address=0x40)
@@ -24,14 +29,8 @@ def move_motor(motor, angle):
     pca.servo[motor].angle = angle
     time.sleep(0.03)  # Adjust the delay as needed
 
-# Walking cycle
-def walking_cycle(a = 140, b = 5, c = 5, d = 140):
-    LF = 0
-    RF = 1
-    LR = 2
-    RR = 3
-
-    # Stand up from resting position
+# Stand up from resting
+def stand(a = 140, b = 5, c = 5, d = 140):
     move_motor(LF, a - 45)
     move_motor(RF, b + 45) 
     move_motor(LR, c)
@@ -42,7 +41,20 @@ def walking_cycle(a = 140, b = 5, c = 5, d = 140):
     move_motor(LR, c) 
     move_motor(RR, d)  
 
-    for _ in range(12):  # Repeat the cycle 4 times
+# Lay down and rest
+def lay_down():
+    move_motor(LF, 90)
+    move_motor(RF, 55)
+    move_motor(LR, 55)
+    move_motor(RR, 90)
+
+# Walking cycle
+def walking_cycle(a = 140, b = 5, c = 5, d = 140):
+    
+    # Stand up from resting position
+
+
+    for _ in range(4):  # Repeat the cycle 4 times
         move_motor(LF, a - 25)  
         move_motor(LR, c + 15)
         move_motor(LF, a)
