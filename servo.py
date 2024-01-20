@@ -3,6 +3,7 @@
 
 #Libraries
 import time    #https://docs.python.org/fr/3/library/time.html
+import random
 from adafruit_servokit import ServoKit    #https://circuitpython.readthedocs.io/projects/servokit/en/latest/
 
 # Constants
@@ -32,14 +33,14 @@ def move_motor(motor, angle):
 # Stand up from resting
 def stand(a = 140, b = 5, c = 5, d = 140):
     move_motor(LF, a - 45)
-    move_motor(RF, b + 45) 
+    move_motor(RF, b + 45)
     move_motor(LR, c)
-    move_motor(RR, d) 
+    move_motor(RR, d)
 
-    move_motor(LF, a) 
-    move_motor(RF, b) 
-    move_motor(LR, c) 
-    move_motor(RR, d)  
+    move_motor(LF, a)
+    move_motor(RF, b)
+    move_motor(LR, c)
+    move_motor(RR, d)
 
 # Lay down and rest
 def lay_down():
@@ -50,29 +51,52 @@ def lay_down():
 
 # Walking cycle
 def walking_cycle(a = 140, b = 5, c = 5, d = 140):
-    
+
     # Stand up from resting position
 
 
-    for _ in range(4):  # Repeat the cycle 4 times
-        move_motor(LF, a - 25)  
+    for _ in range(12):  # Repeat the cycle 4 times
+        move_motor(LF, a - 25)
+        display()
+        move_motor(RR, d + 5) #new
+        display()
         move_motor(LR, c + 15)
+        display()
         move_motor(LF, a)
+        display()
         move_motor(LR, c)
+        display()
         move_motor(RF, b + 25)
+        display()
+        move_motor(LR, c - 5)
+        display()
         move_motor(RR, d - 15)
+        display()
         move_motor(RF, b)
+        display()
         move_motor(RR, d)
+        display()
 
 # Main function
 def main():
+    lay_down()
+    time.sleep(1)
     walking_cycle()
-    disable_all_motors()
+    time.sleep(1)
+    lay_down()
+    time.sleep(1)
+    stop()
 
 def disable_motor(motor):
     pca.servo[motor].angle = None
 
-def disable_all_motors():
+def display():
+    move_motor(4, 90)
+    for _ in range(1):
+        move_motor(4, random.randint(0, 140))
+
+# Disable all motors
+def stop():
     for i in range(nbPCAServo):
         disable_motor(i)
 
