@@ -6,6 +6,6 @@ Phase 1 of the robotics project, home to the first working prototype of the Mini
 
 ## How It's Made:
 
-**Tech used:** Python
+**Tech used:** Arduino C
 
-Currently using Python to directly control servos and read sensor data. 
+Currently using Arduino C to directly control servos and read sensor data. 
